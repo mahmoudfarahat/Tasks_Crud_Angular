@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  baseApi:'http://localhost:8080/tasks'
+
 };

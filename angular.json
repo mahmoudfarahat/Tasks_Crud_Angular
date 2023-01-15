@@ -5,7 +5,11 @@
   "projects": {
     "user": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "projects/user",
       "sourceRoot": "projects/user/src",
       "prefix": "app",
@@ -18,14 +22,20 @@
             "main": "projects/user/src/main.ts",
             "polyfills": "projects/user/src/polyfills.ts",
             "tsConfig": "projects/user/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
             "assets": [
               "projects/user/src/favicon.ico",
               "projects/user/src/assets"
             ],
             "styles": [
-              "projects/user/src/styles.css"
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
+              "projects/user/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js"
+
+            ]
           },
           "configurations": {
             "production": {
@@ -85,21 +95,31 @@
             "polyfills": "projects/user/src/polyfills.ts",
             "tsConfig": "projects/user/tsconfig.spec.json",
             "karmaConfig": "projects/user/karma.conf.js",
+            "inlineStyleLanguage": "scss",
             "assets": [
               "projects/user/src/favicon.ico",
               "projects/user/src/assets"
             ],
             "styles": [
-              "projects/user/src/styles.css"
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
+              "projects/user/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js"
+
+            ]
           }
         }
       }
     },
     "admin": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "projects/admin",
       "sourceRoot": "projects/admin/src",
       "prefix": "app",
@@ -112,14 +132,20 @@
             "main": "projects/admin/src/main.ts",
             "polyfills": "projects/admin/src/polyfills.ts",
             "tsConfig": "projects/admin/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
             "assets": [
               "projects/admin/src/favicon.ico",
               "projects/admin/src/assets"
             ],
             "styles": [
-              "projects/admin/src/styles.css"
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
+              "projects/admin/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js"
+
+            ]
           },
           "configurations": {
             "production": {
@@ -179,20 +205,26 @@
             "polyfills": "projects/admin/src/polyfills.ts",
             "tsConfig": "projects/admin/tsconfig.spec.json",
             "karmaConfig": "projects/admin/karma.conf.js",
+            "inlineStyleLanguage": "scss",
             "assets": [
               "projects/admin/src/favicon.ico",
               "projects/admin/src/assets"
             ],
             "styles": [
-              "projects/admin/src/styles.css"
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
+              "projects/admin/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js"
+
+            ]
           }
         }
       }
     }
   },
   "cli": {
-    "analytics": "88ca30ad-4578-49f4-9246-b70dd494a5a6"
+    "analytics": "6b63f859-0b22-4ffc-9c4e-fa81cfc3b340"
   }
 }
