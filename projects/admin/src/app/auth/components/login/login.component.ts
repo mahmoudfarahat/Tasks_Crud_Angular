@@ -1,5 +1,4 @@
 import { LoginService } from './../../services/login.service';
-import { Login, LoginResponse } from './../../context/DTO';
 
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -35,6 +34,7 @@ createForm(){
 }
 
 login(){
+
   this.spinner.show();
 this.service.login(this.loginForm.value).subscribe((res:any) =>{
   localStorage.setItem('token','Bearer ' +res.token)
@@ -43,8 +43,9 @@ this.service.login(this.loginForm.value).subscribe((res:any) =>{
 this.router.navigate(['/tasks'])
 this.spinner.hide();
 }, error => {
-  this.toastor.error(error.error)
+  this.toastor.error(error.error.message)
   this.spinner.hide();
+
   console.log(error)
 
 })

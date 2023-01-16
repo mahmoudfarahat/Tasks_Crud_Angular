@@ -3,35 +3,26 @@ import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 import { TasksService } from '../../services/tasks.service';
 import { AddTaskComponent } from '../add-task/add-task.component';
 export interface PeriodicElement {
   title: string;
   user: string;
-  deadLineDate: string;
+  deadline: string;
   status: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {status:'Complete' , title: 'Hydrogen', user: "1.0079", deadLineDate:"10-11-2022" },
-  {status:'In-Prossing' , title: 'Helium', user: "4.0026", deadLineDate:"10-11-2022" },
-  {status:'Complete' , title: 'Lithium', user: "6.941", deadLineDate:"10-11-2022" },
-  {status:'Complete' , title: 'Beryllium', user: "9.0122", deadLineDate:"10-11-2022" },
-  {status:'Complete' , title: 'Boron', user: "10.811", deadLineDate:"10-11-2022" },
-  {status:'Complete' , title: 'Carbon', user: "12.010", deadLineDate:"10-11-2022" },
-  {status:'Complete' , title: 'Nitrogen', user: "14.006", deadLineDate:"10-11-2022" },
-  {status:'Complete' , title: 'Oxygen', user: "15.999", deadLineDate:"10-11-2022" },
-  {status:'Complete' , title: 'Fluorine', user: "18.998", deadLineDate:"10-11-2022" },
-  { status:'Complete' , title: 'Neon', user: "20.179", deadLineDate:"10-11-2022" },
-];
+
 @Component({
   selector: 'app-list-tasks',
   templateUrl: './list-tasks.component.html',
   styleUrls: ['./list-tasks.component.scss']
 })
 export class ListTasksComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'title', 'user' ,'deadLineDate','status', 'actions'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['position', 'title', 'user' ,'deadline','status', 'actions'];
+  dataSource:any = [];
   tasksFilter!:FormGroup
   users:any = [
     {name:"Moahmed" , id:1},
@@ -45,7 +36,11 @@ export class ListTasksComponent implements OnInit {
     {name:"In-Prossing" , id:2},
   ]
 
-  constructor(private service:TasksService,public dialog: MatDialog ,private fb:FormBuilder) { }
+  constructor(private service:TasksService,
+    public dialog: MatDialog ,
+    private fb:FormBuilder
+    ,private toastor: ToastrService,
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.createform()
@@ -60,20 +55,37 @@ export class ListTasksComponent implements OnInit {
     //   toDate:['']
     // })
   }
+mappingTasks(data:any){
+let newTasks =data.map((item:any) => {
+  return{
+  ...item,
+    user:item.userId.username,
 
+
+  }
+
+})
+ return newTasks
+
+
+}
   getAllTasks() {
+this.spinner.show();
+this.service.getAllTasks().subscribe((res:any) => {
+  console.log(res)
+ this.dataSource = this.mappingTasks(res.tasks)
+ this.spinner.hide()
 
-this.service.getAllTasks().subscribe(res => {
-  console.log(res);
 }, error =>{
   console.log(error);
-
+  this.toastor.error(error.error.massage)
+  this.spinner.hide()
 })
   }
   addTask() {
       const dialogRef = this.dialog.open(AddTaskComponent, {
         width: '750px',
-        
+
       });
 
       dialogRef.afterClosed().subscribe(result => {
