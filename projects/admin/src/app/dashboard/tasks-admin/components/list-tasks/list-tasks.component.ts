@@ -44,8 +44,8 @@ export class ListTasksComponent implements OnInit {
     {name:"Complete" , id:1},
     {name:"In-Prossing" , id:2},
   ]
-  constructor(private service:TasksService ) { }
-  // constructor(public dialog: MatDialog ,private fb:FormBuilder) { }
+
+  constructor(private service:TasksService,public dialog: MatDialog ,private fb:FormBuilder) { }
 
   ngOnInit(): void {
     this.createform()
@@ -62,7 +62,7 @@ export class ListTasksComponent implements OnInit {
   }
 
   getAllTasks() {
-   
+
 this.service.getAllTasks().subscribe(res => {
   console.log(res);
 }, error =>{
@@ -70,15 +70,16 @@ this.service.getAllTasks().subscribe(res => {
 
 })
   }
-  // addTask() {
-  //     const dialogRef = this.dialog.open(AddTaskComponent, {
-  //       width: '750px',
-  //     });
+  addTask() {
+      const dialogRef = this.dialog.open(AddTaskComponent, {
+        width: '750px',
+        
+      });
 
-  //     dialogRef.afterClosed().subscribe(result => {
-  //       if(result) {
-  //         this.getAllTasks()
-  //       }
-  //     })
-  // }
+      dialogRef.afterClosed().subscribe(result => {
+        if(result) {
+          this.getAllTasks()
+        }
+      })
+  }
 }
