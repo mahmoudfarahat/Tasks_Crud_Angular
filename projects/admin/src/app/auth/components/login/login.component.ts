@@ -35,16 +35,16 @@ createForm(){
 
 login(){
 
-  this.spinner.show();
+
 this.service.login(this.loginForm.value).subscribe((res:any) =>{
   localStorage.setItem('token','Bearer ' +res.token)
   console.log(res)
   this.toastor.success("Success","Login Success")
 this.router.navigate(['/tasks'])
-this.spinner.hide();
+
 }, error => {
   this.toastor.error(error.error.message)
-  this.spinner.hide();
+
 
   console.log(error)
 

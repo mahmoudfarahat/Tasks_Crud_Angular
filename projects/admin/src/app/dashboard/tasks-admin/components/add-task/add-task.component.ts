@@ -55,36 +55,36 @@ this.formValues = this.newTaskForm.value
 
   }
   updateTask(){
-    this.spinner.show();
+
     let model = this.prepareFormData();
     this.service.updateTask(model,this.data._id).subscribe(
       (res: any) => {
         console.log(res);
         this.toastor.success(res.massage, 'Success');
-        this.spinner.hide();
+
         this.dialog.close(true);
       },
       (error) => {
         console.log(error);
         this.toastor.error(error.error.massage);
-        this.spinner.hide();
+
       }
     );
   }
   createTask() {
-    this.spinner.show();
+
     let model = this.prepareFormData();
     this.service.createTask(model).subscribe(
       (res: any) => {
         console.log(res);
         this.toastor.success(res.massage, 'Success');
-        this.spinner.hide();
+
         this.dialog.close(true);
       },
       (error) => {
         console.log(error);
         this.toastor.error(error.error.massage);
-        this.spinner.hide();
+        
       }
     );
   }

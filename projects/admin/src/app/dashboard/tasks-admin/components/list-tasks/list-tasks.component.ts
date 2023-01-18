@@ -98,24 +98,25 @@ export class ListTasksComponent implements OnInit {
 
 this.filteration[type] = moment(event.value).format('DD-MM-YYYY')
 console.log(this.filteration  )
-if(type="toDate" && this.filteration['toDate'] =='Invalid date' )
+console.log(type), console.log(this.filteration['toDate'])
+if(type=="toDate" && this.filteration['toDate'] !='Invalid date' )
 {
   this.getAllTasks();
 }
 
   }
   deleteTask(id: any) {
-    this.spinner.show();
+
     this.service.deleteTask(id).subscribe(
       (res) => {
-        this.spinner.hide();
+
         this.toastor.success('Deleted Successfully');
         this.getAllTasks();
       },
       (error) => {
         console.log(error);
         this.toastor.error(error.error.massage);
-        this.spinner.hide();
+
       }
     );
   }
@@ -145,18 +146,18 @@ if(type="toDate" && this.filteration['toDate'] =='Invalid date' )
   }
 
   getAllTasks() {
-    this.spinner.show();
+
     this.service.getAllTasks(this.filteration).subscribe(
       (res: any) => {
         console.log(res);
         this.dataSource = this.mappingTasks(res.tasks);
         this.total = res.totalItems
-        this.spinner.hide();
+
       },
       (error) => {
         console.log(error);
         this.toastor.error(error.error.massage);
-        this.spinner.hide();
+        
       }
     );
   }
