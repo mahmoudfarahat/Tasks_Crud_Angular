@@ -11,7 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CoreModule } from './core/core.module';
-
+import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
 
 @NgModule({
   declarations: [
@@ -22,6 +22,7 @@ import { CoreModule } from './core/core.module';
     BrowserModule,
     MaterialModule,
     FormsModule,
+    NgxPaginationModule,
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
