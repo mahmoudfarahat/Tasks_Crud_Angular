@@ -1,3 +1,4 @@
+import { ErrorInterceptor } from './interceptor/error.interceptor';
 import { LoaderInterceptor } from './interceptor/loader.interceptor';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { NgModule } from '@angular/core';
@@ -20,6 +21,11 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
   {
     provide:HTTP_INTERCEPTORS,
     useClass:LoaderInterceptor,
+    multi:true
+  },
+  {
+    provide:HTTP_INTERCEPTORS,
+    useClass:ErrorInterceptor,
     multi:true
   }
   ]

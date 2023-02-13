@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -46,8 +47,8 @@ export class ListTasksComponent implements OnInit {
   ];
 
   status: any = [
-    { name: 'Complete' },
-    { name: 'In-Prossing'},
+    { name: this.translate.instant("tasks.Complete") },
+    { name: 'In-Progress'},
   ];
 
   constructor(
@@ -55,7 +56,8 @@ export class ListTasksComponent implements OnInit {
     public dialog: MatDialog,
     private fb: FormBuilder,
     private toastor: ToastrService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -115,7 +117,7 @@ if(type=="toDate" && this.filteration['toDate'] !='Invalid date' )
       },
       (error) => {
         console.log(error);
-        this.toastor.error(error.error.massage);
+        this.toastor.error(error.error.message);
 
       }
     );
@@ -140,7 +142,7 @@ if(type=="toDate" && this.filteration['toDate'] !='Invalid date' )
   selectStatus(event:any){
     this.page =1
     this.filteration['page']=1
-    this.filteration['status'] = event.value
+    this.filteration['status'] = event.value.trim();
     this.getAllTasks()
 
   }
@@ -153,11 +155,6 @@ if(type=="toDate" && this.filteration['toDate'] !='Invalid date' )
         this.dataSource = this.mappingTasks(res.tasks);
         this.total = res.totalItems
 
-      },
-      (error) => {
-        console.log(error);
-        this.toastor.error(error.error.massage);
-        
       }
     );
   }

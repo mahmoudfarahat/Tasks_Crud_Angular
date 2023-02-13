@@ -11,9 +11,14 @@
           <a class="nav-link" routerLink="/users"  routerLinkActive="active">Users</a>
         </li>
       </ul>
+      <div class="nav-item">
+        <a class="nav-link" (click)="changeLanguage()">{{ lang == 'en' ? 'عربي' : 'English' }} </a>
+       </div>
      <div class="nav-item">
       <a class="nav-link" routerLink="/login">Logout</a>
+
      </div>
+
     </div>
   </div>
 

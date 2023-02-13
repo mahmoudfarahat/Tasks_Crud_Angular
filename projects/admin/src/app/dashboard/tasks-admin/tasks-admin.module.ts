@@ -11,6 +11,7 @@ import { MaterialModule } from '../../material/material.module';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 
 import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
+import { SharedModule } from '../../shared/shared.module';
 @NgModule({
   declarations: [
     ListTasksComponent,
@@ -24,7 +25,8 @@ import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
     HttpClientModule,
     CommonModule,
     NgxPaginationModule,
-    TasksAdminRoutingModule
+    TasksAdminRoutingModule,
+    SharedModule
   ]
 })
 export class TasksAdminModule { }
