@@ -3,9 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { TasksRoutingModule } from './tasks-routing.module';
 import { ListTasksComponent } from './components/list-tasks/list-tasks.component';
-import { MaterialModule } from '../material/material.module';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MaterialModule } from '../../material/material.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -18,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule,
     CommonModule,
+    NgxPaginationModule,
     TasksRoutingModule
   ]
 })

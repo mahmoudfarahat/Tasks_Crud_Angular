@@ -29,6 +29,7 @@ export class ListTasksComponent implements OnInit {
   displayedColumns: string[] = ['position', 'title', 'user' ,'deadLineDate','status', 'actions'];
   dataSource = ELEMENT_DATA;
   tasksFilter!:FormGroup
+  page =1
   users:any = [
     {name:"Moahmed" , id:1},
     {name:"Ali" , id:2},
@@ -57,5 +58,8 @@ export class ListTasksComponent implements OnInit {
 
   getAllTasks() {
 
+  }
+  changePage(event : any){
+this.page =event
   }
 }

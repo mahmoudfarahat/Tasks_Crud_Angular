@@ -4,3 +4,12 @@ export interface  CreateAccount{
   role:string,
   email:string
 }
+
+
+export interface  Login{
+ 
+  password:string,
+  role:string,
+  email:string
+}
+

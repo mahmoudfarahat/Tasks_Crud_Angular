@@ -11,7 +11,8 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
   ],
   imports: [
     DashboardRoutingModule,
-    CommonModule
+    CommonModule,
+    
   ]
 })
 export class DashboardModule { }

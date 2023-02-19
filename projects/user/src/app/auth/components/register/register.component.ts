@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { CreateTask } from './../../../../../../admin/src/app/dashboard/tasks-admin/context/DTOs';
  import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -12,7 +13,7 @@ import { ParseSourceFile } from '@angular/compiler';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private fb:FormBuilder , private service: LoginService) { }
+  constructor(private fb:FormBuilder , private service: LoginService , private router:Router) { }
 
   registerForm!:FormGroup
   ngOnInit(): void {
@@ -40,7 +41,7 @@ export class RegisterComponent implements OnInit {
   }
 
   this.service.createUser(MODEL).subscribe(res => {
-    console.log(res)
+   this.router.navigate(['/tasks'])
   })
   console.log(this.registerForm)
  }
