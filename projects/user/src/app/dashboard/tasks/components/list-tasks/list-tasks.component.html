@@ -8,11 +8,12 @@
     totalItems: 10 }; let index = index">
       <div class="card mt-3" >
         <div class="card-body">
+          <img [src]="'https://crud-xke3.onrender.com/' +item.image" alt="">
           <h2 class="card-title">{{item.title}}</h2>
-          <p class="card-subtitle mb-2 text-muted">Dead-Line Date : {{item.deadLineDate}}</p>
+          <p class="card-subtitle mb-2 text-muted">Dead-Line Date : {{item.deadline}}</p>
           <p class="card-text">{{item.description }}</p>
-          <a  class="card-link"  mat-raised-button color="basic">Details</a>
-          <button  mat-raised-button color="warn">Complete</button>
+          <a  class="card-link"  mat-raised-button color="basic">{{ 'tasks.Details' | translate}}</a>
+          <button  mat-raised-button color="warn">{{ 'tasks.Complete' | translate}}</button>
         </div>
       </div>
     </div>

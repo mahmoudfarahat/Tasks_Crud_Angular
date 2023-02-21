@@ -28,8 +28,10 @@ createForm(){
 
 
 login(){
-this.loginService.login(this.loginForm.value).subscribe(a => {
+this.loginService.login(this.loginForm.value).subscribe((res:any) => {
+
   this.router.navigate(['/tasks'])
+  localStorage.setItem('token','Bearer ' +res.token)
   this.toaster.success("Login Success","Success")
 })
 }
