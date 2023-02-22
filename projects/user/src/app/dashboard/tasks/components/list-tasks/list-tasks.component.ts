@@ -1,3 +1,4 @@
+import { ToastrModule, ToastrService } from 'ngx-toastr';
  import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -38,12 +39,14 @@ export class ListTasksComponent implements OnInit {
     {name:"Ahmed" , id:3},
     {name:"Zain" , id:4},
   ]
-
+totalItems:any = 0
   status:any = [
     {name:"Complete" , id:1},
     {name:"In-Prossing" , id:2},
   ]
-  constructor(public dialog: MatDialog ,private fb:FormBuilder , private tasksService:TasksService) { }
+  constructor(public dialog: MatDialog ,private fb:FormBuilder ,
+    private tasksService:TasksService,
+    private  toastr :ToastrService) { }
 selectStatus:string = "In-Progress"
   ngOnInit(): void {
     this.createform()
@@ -72,9 +75,24 @@ getUserData(){
     }
 this.tasksService.getUserTasks(this.userData.userId, params).subscribe((res:any)=> {
 this.dataSource= res.tasks
+this.totalItems =res.totalItems
+}, error => {
+  this.dataSource = []
 })
   }
   changePage(event : any){
 this.page =event
+this.getAllTasks()
+  }
+
+
+  complete(ele:any){
+    const MODEL = {
+      id:ele._id
+    }
+this.tasksService.completeTasks(MODEL).subscribe(res =>{
+  this.getAllTasks()
+  this.toastr.success('Task Complete Successfully','success')
+})
   }
 }

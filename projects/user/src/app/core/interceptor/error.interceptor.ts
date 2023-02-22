@@ -27,7 +27,7 @@ export class ErrorInterceptor implements HttpInterceptor {
          toaster.error(error.error.message)
         if(error.error.message =="jwt expired")
         {
-          this.router.navigate(['/login'])
+          this.router.navigate(['/auth/login'])
           localStorage.removeItem('token')
         }
         throw error

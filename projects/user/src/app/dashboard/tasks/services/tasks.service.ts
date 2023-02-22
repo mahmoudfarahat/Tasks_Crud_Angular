@@ -20,4 +20,15 @@ Object.entries(tasksParams).forEach(([key,value]:any) =>{
 })
     return this.http.get(environment.baseApi+ '/user-tasks/'+ userId , {params})
   }
+
+
+  completeTasks(model:object){
+   return this.http.put(environment.baseApi + '/complete',model)
+  }
+
+
+  tasksDetails(id:any)
+  {
+    return this.http.get(environment.baseApi+'/task/'+id)
+  }
 }

@@ -5,15 +5,15 @@
     <div class="col-md-3" *ngFor="let item of dataSource | paginate: { id: 'tasks',
     itemsPerPage: 5,
     currentPage: page,
-    totalItems: 10 }; let index = index">
+    totalItems: totalItems }; let index = index">
       <div class="card mt-3" >
         <div class="card-body">
           <img [src]="'https://crud-xke3.onrender.com/' +item.image" alt="">
           <h2 class="card-title">{{item.title}}</h2>
           <p class="card-subtitle mb-2 text-muted">Dead-Line Date : {{item.deadline}}</p>
           <p class="card-text">{{item.description }}</p>
-          <a  class="card-link"  mat-raised-button color="basic">{{ 'tasks.Details' | translate}}</a>
-          <button  mat-raised-button color="warn">{{ 'tasks.Complete' | translate}}</button>
+          <a  class="card-link"  mat-raised-button color="basic" [routerLink]="['/tasks',item._id]">{{ 'tasks.Details' | translate}}</a>
+          <button  mat-raised-button color="warn" (click)="complete(item)">{{ 'tasks.Complete' | translate}}</button>
         </div>
       </div>
     </div>
