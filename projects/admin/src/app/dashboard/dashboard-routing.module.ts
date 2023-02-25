@@ -1,3 +1,4 @@
+import { AdminGuard } from './../core/guards/admin.guard';
 import { LayoutComponent } from './layout/layout.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -6,6 +7,7 @@ const routes: Routes = [
   {
     path:'',
     component:LayoutComponent,
+    canActivateChild:[AdminGuard],
     children:[
       {path:'tasks',
       loadChildren: () => import(`./tasks-admin/tasks-admin.module`).then(m => m.TasksAdminModule)

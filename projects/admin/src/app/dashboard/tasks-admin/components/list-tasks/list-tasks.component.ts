@@ -1,3 +1,4 @@
+import { UsersService } from './../../../manage-users/services/users.service';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
@@ -40,8 +41,6 @@ export class ListTasksComponent implements OnInit {
 
   total:any
   users: any = [
-    { name: 'Ali', id: '63c52a0b1fc4f216a370ba88' },
-    { name: 'Moahmed', id: '63c529261fc4f216a370ba81' },
 
 
   ];
@@ -57,14 +56,42 @@ export class ListTasksComponent implements OnInit {
     private fb: FormBuilder,
     private toastor: ToastrService,
     private spinner: NgxSpinnerService,
-    private translate: TranslateService
-  ) {}
+    private translate: TranslateService,
+    private usersService:UsersService
+  ) {
+    this.getDataFromSubject()
+  }
 
   ngOnInit(): void {
     this.createform();
     this.getAllTasks();
+    this.getUser();
   }
 
+  getUser(){
+this.usersService.getUserData()
+
+  }
+  getDataFromSubject(){
+    this.usersService.userData.subscribe((res:any)=>{
+
+      if(res){
+        this.users =this.userMapping(res.data)
+      }
+
+console.log(this.users)
+    })
+  }
+
+  userMapping(data:any[]){
+    let newArray = data?.map(item => {
+      return {
+        name:item.username,
+        id:item._id
+      }
+    })
+    return newArray
+  }
   createform() {
     // this.tasksFilter = this.fb.group({
     //   title:[''],
@@ -75,6 +102,7 @@ export class ListTasksComponent implements OnInit {
   }
   mappingTasks(data: any) {
     let newTasks = data.map((item: any) => {
+
       return {
         ...item,
         user: item.userId.username,

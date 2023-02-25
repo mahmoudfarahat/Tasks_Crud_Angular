@@ -28,25 +28,14 @@ export interface PeriodicElement {
 export class UsersComponent implements OnInit {
   displayedColumns: string[] = ['position', 'name', 'email' ,'tasksAssigned', 'actions'];
   dataSource :any= [ ];
-  constructor(private  usersService:UsersService , private  toastr :ToastrService) { }
+  constructor(private  usersService:UsersService , private  toastr :ToastrService) {
+    this.getDataFromSubject()
+   }
 page = 1
 totalItems:any
   ngOnInit(): void {
-    this.getUserData()
+    this.getUser()
   }
-getUserData()
-{
-const MODEL = {
-  page:this.page,
-  limit:10,
-  name:''
-}
-this.usersService.getAllUsers(MODEL).subscribe((res:any) =>{
-  console.log(res)
-this.totalItems = res.totalItems,
-this.dataSource= res.users
-})
-}
 
 deleteUser(id:string, index:number){
   if(this.dataSource[index].assignedTasks > 0){
@@ -56,7 +45,7 @@ deleteUser(id:string, index:number){
     this.usersService.deleteUser(id).subscribe(res => {
       this.toastr.success("User Deleted Successfully")
       this.page =1
-      this.getUserData()
+      this.getUser()
     })
   }
 
@@ -64,9 +53,25 @@ deleteUser(id:string, index:number){
 changePage(event:any){
   this.page =event
 
-  this.getUserData()
+  this.getUser()
 }
 
+getUser(){
+  const MODEL = {
+    page:this.page,
+    limit:10,
+    name:''
+  }
+
+  this.usersService.getUserData(MODEL)
+}
+
+getDataFromSubject(){
+  this.usersService.userData.subscribe((res:any)=>{
+    this.dataSource =res.data
+    this.totalItems=res.total
+  })
+}
 changeUserStatus(status:string , id:string,index:number){
   if(this.dataSource[index].assignedTasks > 0){
     this.toastr.error("You can't Delete this User until finish his tasks")
@@ -80,7 +85,7 @@ changeUserStatus(status:string , id:string,index:number){
      this.usersService.changeStatus(Model).subscribe(res =>{
       this.toastr.success("User Status Updated Successfully")
       this.page =1
-      this.getUserData()
+      this.getUser()
      })
   }
 

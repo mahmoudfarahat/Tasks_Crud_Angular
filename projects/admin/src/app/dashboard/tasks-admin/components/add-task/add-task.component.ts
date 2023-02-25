@@ -12,6 +12,7 @@ import {
 import { TasksService } from '../../services/tasks.service';
 import * as moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { UsersService } from '../../../manage-users/services/users.service';
 
 @Component({
   selector: 'app-add-task',
@@ -26,13 +27,16 @@ export class AddTaskComponent implements OnInit {
     public matDialog: MatDialog,
     private service: TasksService,
     private toastor: ToastrService,
-    private spinner: NgxSpinnerService
-  ) {}
+    private spinner: NgxSpinnerService,
+    private usersService:UsersService
+  ) {
+    this.getDataFromSubject()
+  }
 
   users: any = [
     { name: 'Moahmed', id: '63c529261fc4f216a370ba81' },
     { name: 'Ali', id: '63c52a0b1fc4f216a370ba88' },
-    {name:'Mahmoud', id : '63f269a17ab15e6a1cf92287'}
+    {name:'Mahmoud', id : '63ea0ec67e11e80e56737540'}
   ];
 
   fileName = '';
@@ -41,6 +45,23 @@ export class AddTaskComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.data);
     this.createForm();
+  }
+
+  getDataFromSubject(){
+    this.usersService.userData.subscribe((res:any)=>{
+      this.users =this.userMapping(res.data)
+console.log(this.users)
+    })
+  }
+
+  userMapping(data:any[]){
+    let newArray = data.map(item => {
+      return {
+        name:item.username,
+        id:item._id
+      }
+    })
+    return newArray
   }
 
   createForm() {
